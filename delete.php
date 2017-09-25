@@ -10,7 +10,7 @@ if (empty($id))
 }
 // remove do banco
 $PDO = db_connect();
-$sql = "DELETE FROM users WHERE id = :id";
+$sql = "DELETE FROM produto WHERE id = :id";
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 if ($stmt->execute())

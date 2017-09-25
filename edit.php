@@ -2,28 +2,28 @@
 require_once 'init.php';
 // resgata os valores do formulário
 $name = isset($_POST['name']) ? $_POST['name'] : null;
-$email = isset($_POST['email']) ? $_POST['email'] : null;
-$gender = isset($_POST['gender']) ? $_POST['gender'] : null;
-$birthdate = isset($_POST['birthdate']) ? $_POST['birthdate'] : null;
+$color = isset($_POST['color']) ? $_POST['color'] : null;
+$price = isset($_POST['price']) ? $_POST['price'] : null;
+$startDate = isset($_POST['startDate']) ? $_POST['startDate'] : null;
 $id = isset($_POST['id']) ? $_POST['id'] : null;
 // validação (bem simples, mais uma vez)
-if (empty($name) || empty($email) || empty($gender) || empty($birthdate))
+if (empty($name) || empty($color) || empty($price) || empty($startDate))
 {
     echo "Volte e preencha todos os campos";
     exit;
 }
 // a data vem no formato dd/mm/YYYY
 // então precisamos converter para YYYY-mm-dd
-$isoDate = dateConvert($birthdate);
+$isoDate = dateConvert($startDate);
 // atualiza o banco
 $PDO = db_connect();
-$sql = "UPDATE users SET name = :name, email = :email,"
-        . " gender = :gender, birthdate = :birthdate WHERE id = :id";
+$sql = "UPDATE users SET name = :name, color = :color,"
+        . " price = :price, startDate = :startDate WHERE id = :id";
 $stmt = $PDO->prepare($sql);
 $stmt->bindParam(':name', $name);
-$stmt->bindParam(':email', $email);
-$stmt->bindParam(':gender', $gender);
-$stmt->bindParam(':birthdate', $isoDate);
+$stmt->bindParam(':color', $color);
+$stmt->bindParam(':price', $price);
+$stmt->bindParam(':startDate', $isoDate);
 $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 if ($stmt->execute())
 {
